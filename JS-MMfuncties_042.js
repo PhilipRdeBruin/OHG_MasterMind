@@ -18,8 +18,9 @@ function genereercode() {
 			document.getElementById("dropid0" + i).appendChild(klkloon);
 		}
 
-		updStatus("speler", 0, 1, 0, 0, 0);
-//		updStatusAlt(1, 0, i, xgis[0,i], 0)
+		updStatus("kncon", 1, 0, 0, 0);
+		statusArr2[0] = updStatusArr(1, 0, 0, 0);
+
 	}
 }
 

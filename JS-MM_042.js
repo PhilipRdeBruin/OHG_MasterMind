@@ -1,6 +1,5 @@
 
-var gamestatus = new Array;
-var teller = 0;
+var statusArr2 = new Array;
 
 var dragitem; var dragid; var dragparent;
 var dropitem; var dropid;
@@ -180,9 +179,10 @@ function drop(ev) {
 		}
 	}
 
-	gamestatus = updStatus("speler", 0, 0, beurt, 0, 0);
-	alert ("gamestatus = " + gamestatus);
-	makeMove(gamestatus);
+	updStatus("speler", 0, 0, beurt, 0, 0);
+	statusArr2[beurt] = updStatusArr(1, beurt, 0, 0);
+	console.log(statusArr2);
+	makeMove(statusArr2);
 }
 
 
@@ -193,7 +193,32 @@ function initStatusStrings() {
 	}
 }
 
-function updStatus(tp, spelstat, stat, i, nzw, nwi) {
+function updStatusArr(tp, brt, nzw, nwi) {
+	npos = 5;
+
+	var statusArr = new Array;
+	
+	statusArr[0] = tp;
+	statusArr[1] = brt;
+	if (tp == 1 ) {
+		if (brt == 0) {
+			for (j=1; j<=npos; j++) {
+				statusArr[j+1] = 1 * xgis[j];
+			}
+		} else {
+			for (j=1; j<=npos; j++) {
+				statusArr[j+1] = 1 * ygis[j];
+			}
+		}
+	} else if (tp = "contr") {
+		statusArr[8] = nzw;
+		statusArr[9] = nwi;
+	}
+
+	return statusArr;
+}
+
+function updStatus(tp, stat, i, nzw, nwi) {
 	ss = "";
 	brt = fmt00(i);
 
@@ -228,10 +253,6 @@ function updStatus(tp, spelstat, stat, i, nzw, nwi) {
 
 	document.getElementById("statusdata").innerHTML = statusout;
 
-	return statusout;
-
-	//convtoArray(statusout);
-
 }
 
 function fmt00(i) {
@@ -239,32 +260,12 @@ function fmt00(i) {
 	return i00;
 }
 
-function convtoArray(stat) {
-	var statout = new Array;
-
-	teller = teller + 1;
-	console.log(teller);
-
-	// i = 0;
-	// l = stat.length;
-	// stat = stat.substring(1, l);
+function extractpins(arr) {
+	var res = new Array;
 	
-	// while (stat.indexOf("]") > 0 && stat != "" && i<12) {
-	// 	p = stat.indexOf("]")
-	// 	statout[i] = stat.substring(0,p + 1);
-
-	// 	alert ("statout[" + i + "] = " + statout[i]);
-
-	// 	stat = stat.substring(p + 2);
-	// 	alert ("restant = " + stat);
-	// 	i++;
-	// }
-
-	// alert("nu buiten while-loop");
-
-	// for (i=1; i<statout.length; i++) {
-	// 	alert ("statout[" + i + "] = " + statout[i]);
-	// }
-
-	// return statout;
+	npos = 5;
+	for (i=2; i<npos+2; i++) {
+		res[i-2] = arr[i];
+	}
+	return res;
 }
